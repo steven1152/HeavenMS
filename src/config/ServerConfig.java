@@ -65,6 +65,7 @@ public class ServerConfig {
     public boolean USE_MTS;
     public boolean USE_CPQ;
     public boolean USE_AUTOHIDE_GM;
+    public boolean USE_AUTOMATIC_BUDDYLIST;
     public boolean USE_BUYBACK_SYSTEM;
     public boolean USE_FIXED_RATIO_HPMP_UPDATE;
     public boolean USE_FAMILY_SYSTEM;
@@ -301,5 +302,8 @@ public class ServerConfig {
 
     //Event End Timestamp
     public long EVENT_END_TIMESTAMP;
+
+    //Drop configuration
+    public boolean DROP_PRODUCTION_STIMULATOR;
 
 }

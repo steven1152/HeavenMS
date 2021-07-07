@@ -253,6 +253,7 @@ public class CommandsExecutor {
         addCommand("item", 2, ItemCommand.class);
         addCommand("drop", 2, ItemDropCommand.class);
         addCommand("level", 2, LevelCommand.class);
+        addCommand("lvlup", 2, LvlupCommand.class);
         addCommand("levelpro", 2, LevelProCommand.class);
         addCommand("setslot", 2, SetSlotCommand.class);
         addCommand("setstat", 2, SetStatCommand.class);
@@ -350,6 +351,7 @@ public class CommandsExecutor {
         addCommand("questrate", 4, QuestRateCommand.class);
         addCommand("travelrate", 4, TravelRateCommand.class);
         addCommand("fishrate", 4, FishingRateCommand.class);
+        addCommand("respawnrate", 4, RespawnRateCommand.class);
         addCommand("itemvac", 4, ItemVacCommand.class);
         addCommand("forcevac", 4, ForceVacCommand.class);
         addCommand("zakum", 4, ZakumCommand.class);

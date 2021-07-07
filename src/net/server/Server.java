@@ -95,6 +95,7 @@ import constants.game.GameConstants;
 import constants.net.OpcodeConstants;
 import constants.net.ServerConstants;
 import java.util.TimeZone;
+import java.util.concurrent.ScheduledFuture;
 import server.CashShop.CashItemFactory;
 import server.MapleSkillbookInformationProvider;
 import server.ThreadManager;
@@ -133,6 +134,7 @@ public class Server {
     private List<Pair<Integer, String>> worldRecommendedList = new LinkedList<>();
     private final Map<Integer, MapleGuild> guilds = new HashMap<>(100);
     private final Map<MapleClient, Long> inLoginState = new HashMap<>(100);
+    private ScheduledFuture<?> respawnTask;
     
     private final PlayerBuffStorage buffStorage = new PlayerBuffStorage();
     private final Map<Integer, MapleAlliance> alliances = new HashMap<>(100);
@@ -155,6 +157,7 @@ public class Server {
     
     private final AtomicLong currentTime = new AtomicLong(0);
     private long serverCurrentTime = 0;
+    private long respawnRate = 0;
     
     private boolean availableDeveloperRoom = false;
     private boolean online = false;
@@ -983,7 +986,8 @@ public class Server {
         tMan.register(new LoginStorageTask(), 2 * 60 * 1000, 2 * 60 * 1000);
         tMan.register(new DueyFredrickTask(), 60 * 60 * 1000, timeLeft);
         tMan.register(new InvitationTask(), 30 * 1000, 30 * 1000);
-        tMan.register(new RespawnTask(), YamlConfig.config.server.RESPAWN_INTERVAL, YamlConfig.config.server.RESPAWN_INTERVAL);
+        this.respawnRate = YamlConfig.config.server.RESPAWN_INTERVAL;
+        respawnTask = tMan.register(new RespawnTask(), this.respawnRate, this.respawnRate);
         
         timeLeft = getTimeLeftForNextDay();
         MapleExpeditionBossLog.resetBossLogTable();
@@ -1957,5 +1961,17 @@ public class Server {
             System.gc();
             getInstance().init();//DID I DO EVERYTHING?! D:
         }
+    }
+    
+    public void setRespawnRate(long respawnRate){
+        if(!respawnTask.isCancelled()){
+            respawnTask.cancel(false);
+        }
+        respawnTask = TimerManager.getInstance().register(new RespawnTask(), respawnRate, respawnRate);
+        this.respawnRate = respawnRate;
+    }
+    
+    public long getRespawnRate(){
+        return this.respawnRate;
     }
 }

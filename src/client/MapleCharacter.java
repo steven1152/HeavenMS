@@ -458,7 +458,11 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
         ret.job = MapleJob.BEGINNER;
         ret.level = 1;
         ret.accountid = c.getAccID();
-        ret.buddylist = new BuddyList(20);
+        if(YamlConfig.config.server.USE_AUTOMATIC_BUDDYLIST){
+            ret.buddylist = new BuddyListAutomatic();
+        }else{
+            ret.buddylist = new BuddyList(20);
+        }
         ret.maplemount = null;
         ret.getInventory(MapleInventoryType.EQUIP).setSlotLimit(24);
         ret.getInventory(MapleInventoryType.USE).setSlotLimit(24);
@@ -7165,8 +7169,12 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
             ret.dojoStage = rs.getInt("lastDojoStage");
             ret.dataString = rs.getString("dataString");
             ret.mgc = new MapleGuildCharacter(ret);
-            int buddyCapacity = rs.getInt("buddyCapacity");
-            ret.buddylist = new BuddyList(buddyCapacity);
+            if(YamlConfig.config.server.USE_AUTOMATIC_BUDDYLIST){
+                ret.buddylist = new BuddyListAutomatic();
+            }else{
+                int buddyCapacity = rs.getInt("buddyCapacity");
+                ret.buddylist = new BuddyList(buddyCapacity);
+            }
             ret.lastExpGainTime = rs.getTimestamp("lastExpGainTime").getTime();
             ret.canRecvPartySearchInvite = rs.getBoolean("partySearch");
             

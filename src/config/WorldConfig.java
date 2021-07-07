@@ -13,4 +13,5 @@ public class WorldConfig {
     public int quest_rate = 1;
     public int travel_rate = 1;
     public int fishing_rate = 1;
+    public int respawn_rate = 1;
 }

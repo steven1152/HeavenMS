@@ -242,6 +242,10 @@ public final class ItemConstants {
         return itemId >= 4031357 && itemId <= 4031364;
     }
     
+    public static boolean isProductionStimulator(int itemId) {
+        return itemId >= 4130000 && itemId <= 4131000;
+    }
+    
     public static boolean isFace(int itemId) {
         return itemId >= 20000 && itemId < 22000;
     }

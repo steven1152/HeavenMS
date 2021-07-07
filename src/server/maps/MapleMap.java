@@ -24,6 +24,7 @@ package server.maps;
 import client.MapleBuffStat;
 import client.MapleCharacter;
 import client.MapleClient;
+import client.MapleJob;
 import client.autoban.AutobanFactory;
 import client.inventory.Equip;
 import client.inventory.Item;
@@ -690,6 +691,15 @@ public class MapleMap {
                         spawnMesoDrop(mesos, calcDropPos(pos, mob.getPosition()), mob, chr, false, droptype);
                     }
                 } else {
+                    if(ItemConstants.isArrow(de.itemId) && !chr.getJob().isA(MapleJob.BOWMAN)) {
+                        continue;
+                    }
+                    if(!YamlConfig.config.server.DROP_PRODUCTION_STIMULATOR && ItemConstants.isProductionStimulator(de.itemId)){
+                        continue;
+                    }
+                    if(!MapleItemInformationProvider.getInstance().CharHasEquipReqJob(chr, de.itemId)){
+                        continue;
+                    }
                     if (ItemConstants.getInventoryType(de.itemId) == MapleInventoryType.EQUIP) {
                         idrop = ii.randomizeStats((Equip) ii.getEquipById(de.itemId));
                     } else {

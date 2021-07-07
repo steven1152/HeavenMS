@@ -221,6 +221,7 @@ server:
     USE_MTS: false
     USE_CPQ: true                       #Renders the CPQ available or not.
     USE_AUTOHIDE_GM: true              #When enabled, GMs are automatically hidden when joining. Thanks to Steven Deblois (steven1152).
+    USE_AUTOMATIC_BUDDYLIST: true #When enabled, everyone is automatically buddy
     USE_BUYBACK_SYSTEM: false            #Enables the HeavenMS-builtin buyback system, to be used by dead players when clicking the MTS button.
     USE_FIXED_RATIO_HPMP_UPDATE: false   #Enables the HeavenMS-builtin HPMP update based on the current pool to max pool ratio.
     USE_FAMILY_SYSTEM: true
@@ -458,3 +459,5 @@ server:
     #Event End Timestamp
     EVENT_END_TIMESTAMP: 1428897600000
 
+    #Drop configuration
+    DROP_PRODUCTION_STIMULATOR: false

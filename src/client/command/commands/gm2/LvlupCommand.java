@@ -21,15 +21,14 @@
 /*
    @Author: Arthur L - Refactored command content into modules
 */
-package client.command.commands.gm0;
+package client.command.commands.gm2;
 
-import client.MapleCharacter;
 import client.command.Command;
 import client.MapleClient;
+import client.MapleCharacter;
 import config.YamlConfig;
-import net.server.Server;
 
-public class RatesCommand extends Command {
+public class LvlupCommand extends Command {
     {
         setDescription("");
     }
@@ -37,16 +36,10 @@ public class RatesCommand extends Command {
     @Override
     public void execute(MapleClient c, String[] params) {
         MapleCharacter player = c.getPlayer();
-        
-        // travel rates not applicable since it's intrinsically a server/environment rate rather than a character rate
-        String showMsg_ = "#eCHARACTER RATES#n" + "\r\n\r\n";
-        showMsg_ += "EXP Rate: #e#b" + player.getExpRate() + "x#k#n" + (player.hasNoviceExpRate() ? " - novice rate" : "") + "\r\n";
-        showMsg_ += "MESO Rate: #e#b" + player.getMesoRate() + "x#k#n" + "\r\n";
-        showMsg_ += "DROP Rate: #e#b" + player.getDropRate() + "x#k#n" + "\r\n";
-        showMsg_ += "BOSS DROP Rate: #e#b" + player.getBossDropRate() + "x#k#n" + "\r\n";
-        showMsg_ += "RESPAWN Rate: #e#b" + Server.getInstance().getRespawnRate() + "x#k#n" + "\r\n";
-        if(YamlConfig.config.server.USE_QUEST_RATE) showMsg_ += "QUEST Rate: #e#b" + c.getWorldServer().getQuestRate() + "x#k#n" + "\r\n";
+        player.resetPlayerRates();
+        if(YamlConfig.config.server.USE_ADD_RATES_BY_LEVEL) player.setPlayerRates();
+        player.setWorldRates();
 
-        player.showHint(showMsg_, 300);
+        player.levelUp(true);
     }
 }

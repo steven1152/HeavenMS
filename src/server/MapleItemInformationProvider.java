@@ -1772,6 +1772,73 @@ public class MapleItemInformationProvider {
         equip.wear(true);
         return true;
     }
+    
+    public boolean CharHasEquipReqJob(MapleCharacter player, int itemId){
+        int reqJob = getEquipStats(itemId).get("reqJob");
+        if(reqJob == 0){
+            return true;
+        }
+        if(player.getJob().isA(MapleJob.WARRIOR)){
+            return reqJob % 2 == 1;
+        }
+        if(player.getJob().isA(MapleJob.MAGICIAN)){
+            return reqJob == 2 ? true : //Mage
+                    reqJob == 3 ? true : //Warrior/Mage
+                    reqJob == 6 ? true : //Mage/Bowman
+                    reqJob == 7 ? true : //Warrior/Mage/Bowman
+                    reqJob == 10 ? true : //Mage/Thief
+                    reqJob == 11 ? true : //Warrior/Mage/Thief
+                    reqJob == 14 ? true : //Mage/Bowman/Thief
+                    reqJob == 15 ? true : //Warrior/Mage/Bowman/Thief
+                    reqJob == 18 ? true : //Mage/Pirate
+                    reqJob == 19 ? true : //Warrior/Mage/Pirate
+                    reqJob == 22 ? true : //Mage/Bowman/Pirate
+                    reqJob == 23 ? true : //Warrior/Mage/Bowman/Pirate
+                    reqJob == 30 ? true : //Mage/Bowman/Thief/Pirate
+                    reqJob == 31 ? true : //Warrior/Mage/Bowman/Thief/Pirate
+                   false;
+        }
+        if(player.getJob().isA(MapleJob.BOWMAN)){
+            return reqJob == 4 ? true : //Bowman
+                    reqJob == 5 ? true : //Warrior/Bowman
+                    reqJob == 6 ? true : //Mage/Bowman
+                    reqJob == 7 ? true : //Warrior/Mage/Bowman
+                    reqJob == 12 ? true : //Bowman/Thief
+                    reqJob == 13 ? true : //Warrior/Bowman/Thief
+                    reqJob == 14 ? true : //Mage/Bowman/Thief
+                    reqJob == 15 ? true : //Warrior/Mage/Bowman/Thief
+                    reqJob == 20 ? true : //Bowman/Pirate
+                    reqJob == 21 ? true : //Warrior/Bowman/Pirate
+                    reqJob == 22 ? true : //Mage/Bowman/Pirate
+                    reqJob == 23 ? true : //Warrior/Mage/Bowman/Pirate
+                    reqJob == 28 ? true : //Bowman/Thief/Pirate
+                    reqJob == 29 ? true : //Warrior/Bowman/Thief/Pirate
+                    reqJob == 30 ? true : //Mage/Bowman/Thief/Pirate
+                    reqJob == 31 ? true : //Warrior/Mage/Bowman/Thief/Pirate
+                    false;
+        }
+        if(player.getJob().isA(MapleJob.THIEF)){
+            return reqJob == 8 ? true : //Thief
+                    reqJob == 9 ? true : //Warrior/Thief
+                    reqJob == 10 ? true : //Mage/Thief
+                    reqJob == 11 ? true : //Warrior/Mage/Thief
+                    reqJob == 12 ? true : //Bowman/Thief
+                    reqJob == 13 ? true : //Warrior/Bowman/Thief
+                    reqJob == 14 ? true : //Mage/Bowman/Thief
+                    reqJob == 15 ? true : //Warrior/Mage/Bowman/Thief
+                    reqJob == 24 ? true : //Thief/Pirate
+                    reqJob == 25 ? true : //Warrior/Thief/Pirate
+                    reqJob == 28 ? true : //Bowman/Thief/Pirate
+                    reqJob == 29 ? true : //Warrior/Bowman/Thief/Pirate
+                    reqJob == 30 ? true : //Mage/Bowman/Thief/Pirate
+                    reqJob == 31 ? true : //Warrior/Mage/Bowman/Thief/Pirate
+                    false;
+        }
+        if(player.getJob().isA(MapleJob.PIRATE)){
+            return reqJob >= 16;
+        }
+        return true;
+    }
 
     public ArrayList<Pair<Integer, String>> getItemDataByName(String name) {
         ArrayList<Pair<Integer, String>> ret = new ArrayList<>();
