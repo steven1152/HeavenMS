@@ -38,12 +38,12 @@ public class RespawnRateCommand extends Command {
     public void execute(MapleClient c, String[] params) {
         MapleCharacter player = c.getPlayer();
 		
-        if (params.length < 2){
+        if (params.length < 1){
             player.yellowMessage("Syntax: !respawnrate <newrate>");
             return;
         }
 
-        long respawnrate = Math.max(Long.parseLong(params[1]), 1);
+        long respawnrate = Math.max(Long.parseLong(params[0]), 1);
         Server.getInstance().setRespawnRate(respawnrate * 1000);
         c.getWorldServer().broadcastPacket(MaplePacketCreator.serverNotice(6, "[Rate] Respawn Rate has been changed to " + respawnrate + "s."));
     }
